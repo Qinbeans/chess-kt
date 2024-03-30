@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"build": "tailwindcss build -i app.css -o assets/styles/app.css -m && ./gradlew",
+		"dev": "tailwindcss build -i app.css -o assets/styles/app.css && ./gradlew -t run"
+	},
+	"devDependencies": {
+		"tailwindcss": "^3.4.3"
+	}
+}
