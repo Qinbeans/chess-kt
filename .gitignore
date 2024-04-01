@@ -39,3 +39,4 @@ out/
 styles
 node_modules
 *lock*
+logs

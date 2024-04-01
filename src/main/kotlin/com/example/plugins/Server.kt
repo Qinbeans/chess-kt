@@ -17,7 +17,9 @@ import io.ktor.server.html.*
 import io.ktor.server.request.uri
 import kotlinx.html.*
 import com.example.components.*
+import com.example.routes.*
 
+// general server configuration
 fun Application.configureServer() {
     install(DefaultHeaders) {
         header("X-Engine", "Ktor") // will send this header with each response
@@ -49,41 +51,9 @@ fun Application.configureServer() {
         masking = false
     }
     routing {
-        get("/") {
-            // pull hx-boosted from header
-            val boosted = call.request.headers["hx-boosted"]
-            val navbar = hashMapOf("/" to "Home", "/about" to "About", "/contact" to "Contact")
-            val active = call.request.uri
-            println("active "+active+" navbar "+navbar)
-            call.respondHtmlTemplate(LayoutTemplate(navbar = navbar, active = active, boosted = boosted == "true")) {
-                title_ { +"Home" }
-                content {
-                    p { +"Welcome to the home page!" }
-                }
-            }
-        }
-        get("/about") {
-            val boosted = call.request.headers["hx-boosted"]
-            val navbar = hashMapOf("/" to "Home", "/about" to "About", "/contact" to "Contact")
-            val active = call.request.uri
-            call.respondHtmlTemplate(LayoutTemplate(navbar = navbar, active = active, boosted = boosted != "true")) {
-                title_ { +"About" }
-                content {
-                    p { +"This is the about page." }
-                }
-            }
-        }
-        get("/contact") {
-            val boosted = call.request.headers["hx-boosted"]
-            val navbar = hashMapOf("/" to "Home", "/about" to "About", "/contact" to "Contact")
-            val active = call.request.uri
-            call.respondHtmlTemplate(LayoutTemplate(navbar = navbar, active = active, boosted = boosted != "true")) {
-                title_ { +"Contact" }
-                content {
-                    p { +"WIP contact page." }
-                }
-            }
-        }
+        root_page()
+        about_page()
+        contact_page()
         staticFiles("/static", File("assets"))
     }
 }

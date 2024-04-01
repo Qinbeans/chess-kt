@@ -9,18 +9,25 @@ class LayoutTemplate: Template<HTML> {
     val title_ = Placeholder<TITLE>()
     var navbar = HashMap<String, String>()
     var active = ""
+    var description = ""
     val content = Placeholder<FlowContent>()
     var boosted = false
 
-    constructor(navbar: HashMap<String, String> = HashMap(), active: String = "/", boosted: Boolean = false) {
+    constructor(navbar: HashMap<String, String> = HashMap(), active: String = "/", boosted: Boolean = false, description: String = "") {
         this.navbar = navbar
         this.active = active
         this.boosted = boosted
+        this.description = description
     }
 
     override fun HTML.apply() {
+        lang = "en"
+        // insert meta tags for SEO
         if (boosted) {
             head {
+                meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
+                meta(name = "description", content = description)
+                meta(name="charset", content="utf-8")
                 title { insert(title_) }
                 link(rel = "stylesheet", href = "/static/styles/app.css", type = "text/css")
                 script(src = "https://unpkg.com/htmx.org@1.9.11") {}

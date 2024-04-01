@@ -1,7 +1,10 @@
 {
 	"scripts": {
-		"build": "tailwindcss build -i app.css -o assets/styles/app.css -m && ./gradlew",
-		"dev": "tailwindcss build -i app.css -o assets/styles/app.css && ./gradlew -t run"
+		"build": "tailwindcss build -i app.css -o assets/styles/app.css -m && ./gradlew build -i",
+		"dev": "./dev.sh start",
+		"stop": "./dev.sh stop",
+		"build:dev": "./gradlew -t build -x test -i",
+		"build:css": "tailwindcss build -i app.css -o assets/styles/app.css -m"
 	},
 	"devDependencies": {
 		"tailwindcss": "^3.4.3"
